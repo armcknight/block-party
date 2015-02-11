@@ -30,7 +30,7 @@
   PRTAssert(^BOOL { return trueExpression; },
             ^{ self.messageLabel.text = @"passed :D"; },
             ^{ self.messageLabel.text = @"failed D:"; },
-            @"This is a true expression. Why am I asserting?");
+            @"This is a true expression. Why am I asserting?")
 #endif
 }
 
@@ -43,7 +43,7 @@
   PRTAssert(^BOOL { return falseExpression; },
             ^{ self.messageLabel.text = @"passed :D"; },
             ^{ self.messageLabel.text = @"failed D:"; },
-            @"I'm in production. Why am I asserting?");
+            @"I'm in production. Why am I asserting?")
 #endif
 }
 
@@ -52,7 +52,7 @@
   PRTAssert(^BOOL { return trueExpression; },
             ^{ self.messageLabel.text = @"passed :D"; },
             ^{ self.messageLabel.text = @"failed D:"; },
-            @"This is a true expression. Why am I asserting?");
+            @"This is a true expression. Why am I asserting?")
 #else
   self.messageLabel.text = @"You develop without assertions enabled? What me "
                            @"worry? Try running the demo with the Asserts "
@@ -65,7 +65,7 @@
   PRTAssert(^BOOL { return falseExpression; },
             ^{ self.messageLabel.text = @"passed :D"; },
             ^{ self.messageLabel.text = @"failed D:"; },
-            @"This is a true expression. Why am I asserting?");
+            @"This is a true expression. Why am I asserting?")
 #else
   self.messageLabel.text = @"You develop without assertions enabled? What me "
                            @"worry? Try running the demo with the Asserts "
