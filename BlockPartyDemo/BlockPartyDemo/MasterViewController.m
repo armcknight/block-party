@@ -28,7 +28,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  self.demos = @[@"Nav Controller Blocks"];
+  self.demos = @[@"Nav Controller Blocks", @"Assert Blocks"];
   
   self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 }

@@ -17,6 +17,8 @@
 		49F02BDA1A8B9CC9008B0C5D /* BlockPartyDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F02BD91A8B9CC9008B0C5D /* BlockPartyDemoTests.m */; };
 		49F02BE51A8B9E23008B0C5D /* NavBlocksDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F02BE41A8B9E23008B0C5D /* NavBlocksDemoViewController.m */; };
 		49F02BE91A8B9E98008B0C5D /* UINavigationController+PRTBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F02BE81A8B9E98008B0C5D /* UINavigationController+PRTBlocks.m */; };
+		49F02BF21A8BAEA4008B0C5D /* AssertDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F02BF01A8BAEA4008B0C5D /* AssertDemoViewController.m */; };
+		49F02BF31A8BAEA4008B0C5D /* AssertDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49F02BF11A8BAEA4008B0C5D /* AssertDemoViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,10 @@
 		49F02BE41A8B9E23008B0C5D /* NavBlocksDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavBlocksDemoViewController.m; sourceTree = "<group>"; };
 		49F02BE71A8B9E98008B0C5D /* UINavigationController+PRTBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+PRTBlocks.h"; sourceTree = "<group>"; };
 		49F02BE81A8B9E98008B0C5D /* UINavigationController+PRTBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+PRTBlocks.m"; sourceTree = "<group>"; };
+		49F02BEA1A8BA8DF008B0C5D /* PRTAssert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRTAssert.h; path = ../Utilities/PRTAssert.h; sourceTree = "<group>"; };
+		49F02BEF1A8BAEA4008B0C5D /* AssertDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssertDemoViewController.h; sourceTree = "<group>"; };
+		49F02BF01A8BAEA4008B0C5D /* AssertDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssertDemoViewController.m; sourceTree = "<group>"; };
+		49F02BF11A8BAEA4008B0C5D /* AssertDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssertDemoViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +78,7 @@
 		49F02BAE1A8B9CC9008B0C5D = {
 			isa = PBXGroup;
 			children = (
-				49F02BE61A8B9E98008B0C5D /* Categories */,
+				49F02BEE1A8BA8F3008B0C5D /* Block Party */,
 				49F02BB91A8B9CC9008B0C5D /* BlockPartyDemo */,
 				49F02BD61A8B9CC9008B0C5D /* BlockPartyDemoTests */,
 				49F02BB81A8B9CC9008B0C5D /* Products */,
@@ -91,17 +97,8 @@
 		49F02BB91A8B9CC9008B0C5D /* BlockPartyDemo */ = {
 			isa = PBXGroup;
 			children = (
-				49F02BBE1A8B9CC9008B0C5D /* AppDelegate.h */,
-				49F02BBF1A8B9CC9008B0C5D /* AppDelegate.m */,
-				49F02BC11A8B9CC9008B0C5D /* MasterViewController.h */,
-				49F02BC21A8B9CC9008B0C5D /* MasterViewController.m */,
-				49F02BC41A8B9CC9008B0C5D /* DetailViewController.h */,
-				49F02BC51A8B9CC9008B0C5D /* DetailViewController.m */,
-				49F02BE31A8B9E22008B0C5D /* NavBlocksDemoViewController.h */,
-				49F02BE41A8B9E23008B0C5D /* NavBlocksDemoViewController.m */,
-				49F02BC71A8B9CC9008B0C5D /* Main.storyboard */,
-				49F02BCA1A8B9CC9008B0C5D /* Images.xcassets */,
-				49F02BCC1A8B9CC9008B0C5D /* LaunchScreen.xib */,
+				49F02BF51A8BAECD008B0C5D /* Application */,
+				49F02BF41A8BAEAF008B0C5D /* Demo View Controllers */,
 				49F02BBA1A8B9CC9008B0C5D /* Supporting Files */,
 			);
 			path = BlockPartyDemo;
@@ -141,6 +138,51 @@
 			);
 			name = Categories;
 			path = ../Categories;
+			sourceTree = "<group>";
+		};
+		49F02BED1A8BA8E4008B0C5D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				49F02BEA1A8BA8DF008B0C5D /* PRTAssert.h */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		49F02BEE1A8BA8F3008B0C5D /* Block Party */ = {
+			isa = PBXGroup;
+			children = (
+				49F02BED1A8BA8E4008B0C5D /* Utilities */,
+				49F02BE61A8B9E98008B0C5D /* Categories */,
+			);
+			name = "Block Party";
+			sourceTree = "<group>";
+		};
+		49F02BF41A8BAEAF008B0C5D /* Demo View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				49F02BEF1A8BAEA4008B0C5D /* AssertDemoViewController.h */,
+				49F02BF01A8BAEA4008B0C5D /* AssertDemoViewController.m */,
+				49F02BF11A8BAEA4008B0C5D /* AssertDemoViewController.xib */,
+				49F02BE31A8B9E22008B0C5D /* NavBlocksDemoViewController.h */,
+				49F02BE41A8B9E23008B0C5D /* NavBlocksDemoViewController.m */,
+			);
+			name = "Demo View Controllers";
+			sourceTree = "<group>";
+		};
+		49F02BF51A8BAECD008B0C5D /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				49F02BBE1A8B9CC9008B0C5D /* AppDelegate.h */,
+				49F02BBF1A8B9CC9008B0C5D /* AppDelegate.m */,
+				49F02BC41A8B9CC9008B0C5D /* DetailViewController.h */,
+				49F02BC51A8B9CC9008B0C5D /* DetailViewController.m */,
+				49F02BCA1A8B9CC9008B0C5D /* Images.xcassets */,
+				49F02BCC1A8B9CC9008B0C5D /* LaunchScreen.xib */,
+				49F02BC71A8B9CC9008B0C5D /* Main.storyboard */,
+				49F02BC11A8B9CC9008B0C5D /* MasterViewController.h */,
+				49F02BC21A8B9CC9008B0C5D /* MasterViewController.m */,
+			);
+			name = Application;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,6 +268,7 @@
 				49F02BC91A8B9CC9008B0C5D /* Main.storyboard in Resources */,
 				49F02BCE1A8B9CC9008B0C5D /* LaunchScreen.xib in Resources */,
 				49F02BCB1A8B9CC9008B0C5D /* Images.xcassets in Resources */,
+				49F02BF31A8BAEA4008B0C5D /* AssertDemoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +288,7 @@
 			files = (
 				49F02BE91A8B9E98008B0C5D /* UINavigationController+PRTBlocks.m in Sources */,
 				49F02BC01A8B9CC9008B0C5D /* AppDelegate.m in Sources */,
+				49F02BF21A8BAEA4008B0C5D /* AssertDemoViewController.m in Sources */,
 				49F02BE51A8B9E23008B0C5D /* NavBlocksDemoViewController.m in Sources */,
 				49F02BC31A8B9CC9008B0C5D /* MasterViewController.m in Sources */,
 				49F02BBD1A8B9CC9008B0C5D /* main.m in Sources */,
@@ -372,6 +416,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_NS_ASSERTIONS = YES;
 				INFOPLIST_FILE = BlockPartyDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

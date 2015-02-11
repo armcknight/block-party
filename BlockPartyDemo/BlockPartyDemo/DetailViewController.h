@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSUInteger, PRTDemo) {
-  PRTDemoNavBlocks
+  PRTDemoNavBlocks,
+  PRTDemoAsserts
 };
 
 @interface DetailViewController : UIViewController
