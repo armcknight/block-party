@@ -49,7 +49,6 @@ static const void * kPRTNavigationControllerCompletionBlockHelperKey = &kPRTNavi
       willShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated
 {
-  NSLog(@"will show %@", viewController.title);
     dispatch_async(dispatch_get_main_queue(), ^{
         if ( self.preparationBlock != nil ) {
             PRTNavigationControllerPreparationBlock preparation = self.preparationBlock;
@@ -67,7 +66,6 @@ static const void * kPRTNavigationControllerCompletionBlockHelperKey = &kPRTNavi
        didShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated
 {
-  NSLog(@"did show %@", viewController.title);
     // call previous delegate's callback implementation, if any
     
     dispatch_async(dispatch_get_main_queue(), ^{
