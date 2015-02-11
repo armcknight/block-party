@@ -5,7 +5,7 @@ Lego of the delegate pattern.
 - UINavigationController
 
 	    [self.navigationController prt_pushViewController:self.vc1
-      		animated:animated
+      		animated:YES
       		preparation:^(UINavigationController *navigationController,
                     	  UIViewController *presentingViewController) {
           		NSLog(@"Hi! I execute before the nav push!");
