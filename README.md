@@ -5,16 +5,16 @@ Lego of the delegate pattern.
 - UINavigationController
 
 	    [self.navigationController prt_pushViewController:self.vc1
-      	animated:animated
-      	preparation:^(UINavigationController *navigationController,
-                    UIViewController *presentingViewController) {
-          NSLog(@"Hi! I execute before the nav push!");
-      	}
-      	completion:^(UINavigationController *navigationController,
-                   UIViewController *presentedViewController,
-                   NSArray *poppedViewControllers) {
-          NSLog(@"Hi! I execute after the nav push!");
-      	}];
+      		animated:animated
+      		preparation:^(UINavigationController *navigationController,
+                    	  UIViewController *presentingViewController) {
+          		NSLog(@"Hi! I execute before the nav push!");
+      		}
+      		completion:^(UINavigationController *navigationController,
+                   	  	 UIViewController *presentedViewController,
+                   		 NSArray *poppedViewControllers) {
+          		NSLog(@"Hi! I execute after the nav push!");
+      		}];
 
 
 ## Utilities
