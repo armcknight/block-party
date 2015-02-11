@@ -2,7 +2,7 @@
 //  MasterViewController.m
 //  BlockPartyDemo
 //
-//  Created by Andrew McKnight (personal) on 2/11/15.
+//  Created by Andrew McKnight on 2/11/15.
 //  Copyright (c) 2015 Andrew McKnight. All rights reserved.
 //
 
