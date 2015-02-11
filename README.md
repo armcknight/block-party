@@ -4,7 +4,7 @@ Lego of the delegate pattern.
 ## De-delegatized
 - UINavigationController
 
-	  [self.navigationController prt_pushViewController:self.vc1
+	    [self.navigationController prt_pushViewController:self.vc1
       	animated:animated
       	preparation:^(UINavigationController *navigationController,
                     UIViewController *presentingViewController) {
