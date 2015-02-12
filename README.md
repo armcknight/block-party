@@ -24,9 +24,9 @@ Ever wanted a fail-fast assert during development and a graceful exit in product
 ```objective-c
 NSAssert(expression, @"something went wrong");
 if (expression) {
-      ...
+      NSLog(@"production success code");
 } else {
-      ...
+      NSLog(@"production failure code");
 }
 ```
 then you can combine the assert and conditional using this utility macro:
