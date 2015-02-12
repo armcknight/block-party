@@ -19,6 +19,17 @@ Lego of the delegate pattern.
 
 ## Utilities
 - PRTAssert
+
+Ever wanted a fail-fast assert during development and a graceful exit in production? If you've ever written something like this:
+```objective-c
+NSAssert(expression, @"something went wrong");
+if (expression) {
+      ...
+} else {
+      ...
+}
+```
+then you can combine the assert and conditional using this utility macro:
 ```objective-c
 PRTAssert(^BOOL { return YES == NO; },
           ^{ NSLog(@"passed :D"); },
