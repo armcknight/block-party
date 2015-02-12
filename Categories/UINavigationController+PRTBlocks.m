@@ -49,43 +49,43 @@ static const void * kPRTNavigationControllerCompletionBlockHelperKey = &kPRTNavi
       willShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ( self.preparationBlock != nil ) {
-            PRTNavigationControllerPreparationBlock preparation = self.preparationBlock;
-            self.preparationBlock = nil;
-            preparation(navigationController, viewController);
-        }
+  dispatch_async(dispatch_get_main_queue(), ^{
+    if ( self.preparationBlock != nil ) {
+      PRTNavigationControllerPreparationBlock preparation = self.preparationBlock;
+      self.preparationBlock = nil;
+      preparation(navigationController, viewController);
+    }
     
-        if ( [self.previousDelegate respondsToSelector:@selector(navigationController:willShowViewController:animated:)] ) {
-            [self.previousDelegate navigationController:navigationController willShowViewController:viewController animated:animated];
-        }
-    });
+    if ( [self.previousDelegate respondsToSelector:@selector(navigationController:willShowViewController:animated:)] ) {
+      [self.previousDelegate navigationController:navigationController willShowViewController:viewController animated:animated];
+    }
+  });
 }
 
 - (void)navigationController:(UINavigationController *)navigationController
        didShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated
 {
-    // call previous delegate's callback implementation, if any
+  // call previous delegate's callback implementation, if any
+  
+  dispatch_async(dispatch_get_main_queue(), ^{
+    if ( [self.previousDelegate respondsToSelector:@selector(navigationController:didShowViewController:animated:)] ) {
+      [self.previousDelegate navigationController:navigationController didShowViewController:viewController animated:animated];
+    }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ( [self.previousDelegate respondsToSelector:@selector(navigationController:didShowViewController:animated:)] ) {
-            [self.previousDelegate navigationController:navigationController didShowViewController:viewController animated:animated];
-        }
+    // reset the delegates to the way they were before calling the block-based method
+    navigationController.delegate = self.previousDelegate;
+    self.previousDelegate = nil;
     
-        // reset the delegates to the way they were before calling the block-based method
-        navigationController.delegate = self.previousDelegate;
-        self.previousDelegate = nil;
-        
-        // call the completion block
-        if ( self.completionBlock != nil ) {
-            PRTNavigationControllerCompletionBlock completion = self.completionBlock;
-            self.completionBlock = nil;
-            completion(navigationController, viewController, self.poppedViewControllers);
-        }
-        
-        objc_setAssociatedObject(self, kPRTNavigationControllerCompletionBlockHelperKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    });
+    // call the completion block
+    if ( self.completionBlock != nil ) {
+      PRTNavigationControllerCompletionBlock completion = self.completionBlock;
+      self.completionBlock = nil;
+      completion(navigationController, viewController, self.poppedViewControllers);
+    }
+    
+    objc_setAssociatedObject(self, kPRTNavigationControllerCompletionBlockHelperKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  });
 }
 
 @end
@@ -96,69 +96,69 @@ static const void * kPRTNavigationControllerCompletionBlockHelperKey = &kPRTNavi
 
 - (PRTUINavigationControllerCompletionBlockHelper *)prt_setupDelegateWithPreparation:(PRTNavigationControllerPreparationBlock)preparation completion:(PRTNavigationControllerCompletionBlock)completion
 {
-    PRTUINavigationControllerCompletionBlockHelper *helper = [[PRTUINavigationControllerCompletionBlockHelper alloc] init];
-    if ( completion != nil || preparation != nil ) {
-        helper.previousDelegate = self.delegate;
-        self.delegate = helper;
-        helper.preparationBlock = preparation;
-        helper.completionBlock = completion;
-    }
-    
-    objc_setAssociatedObject(self, kPRTNavigationControllerCompletionBlockHelperKey, helper, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    
-    return helper;
+  PRTUINavigationControllerCompletionBlockHelper *helper = [[PRTUINavigationControllerCompletionBlockHelper alloc] init];
+  if ( completion != nil || preparation != nil ) {
+    helper.previousDelegate = self.delegate;
+    self.delegate = helper;
+    helper.preparationBlock = preparation;
+    helper.completionBlock = completion;
+  }
+  
+  objc_setAssociatedObject(self, kPRTNavigationControllerCompletionBlockHelperKey, helper, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  
+  return helper;
 }
 
 #pragma mark - Public
 
 - (void)prt_pushViewController:(UIViewController *)viewController
-                     animated:(BOOL)animated
-                  preparation:(PRTNavigationControllerPreparationBlock)preparation
-                   completion:(PRTNavigationControllerCompletionBlock)completion
-{
-    [self prt_setupDelegateWithPreparation:preparation completion:completion];
-    [self pushViewController:viewController animated:animated];
-}
-
-- (void)prt_popViewControllerAnimated:(BOOL)animated
-                         preparation:(PRTNavigationControllerPreparationBlock)preparation
-                          completion:(PRTNavigationControllerCompletionBlock)completion
-{
-    PRTUINavigationControllerCompletionBlockHelper *helper = [self prt_setupDelegateWithPreparation:preparation completion:completion];
-    UIViewController *poppedViewController = self.viewControllers.lastObject;
-    helper.poppedViewControllers = @[poppedViewController];
-    [self popViewControllerAnimated:animated];
-}
-
-- (void)prt_popToViewController:(UIViewController *)viewController
                       animated:(BOOL)animated
                    preparation:(PRTNavigationControllerPreparationBlock)preparation
                     completion:(PRTNavigationControllerCompletionBlock)completion
 {
-    PRTUINavigationControllerCompletionBlockHelper *helper = [self prt_setupDelegateWithPreparation:preparation completion:completion];
-    NSUInteger indexOfVCToPopTo = [self.viewControllers indexOfObject:viewController];
-    NSArray *poppedViewControllers = [self.viewControllers objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(indexOfVCToPopTo + 1, self.viewControllers.count - 1 - indexOfVCToPopTo)]];
-    helper.poppedViewControllers = poppedViewControllers;
-    [self popToViewController:viewController animated:animated];
+  [self prt_setupDelegateWithPreparation:preparation completion:completion];
+  [self pushViewController:viewController animated:animated];
+}
+
+- (void)prt_popViewControllerAnimated:(BOOL)animated
+                          preparation:(PRTNavigationControllerPreparationBlock)preparation
+                           completion:(PRTNavigationControllerCompletionBlock)completion
+{
+  PRTUINavigationControllerCompletionBlockHelper *helper = [self prt_setupDelegateWithPreparation:preparation completion:completion];
+  UIViewController *poppedViewController = self.viewControllers.lastObject;
+  helper.poppedViewControllers = @[poppedViewController];
+  [self popViewControllerAnimated:animated];
+}
+
+- (void)prt_popToViewController:(UIViewController *)viewController
+                       animated:(BOOL)animated
+                    preparation:(PRTNavigationControllerPreparationBlock)preparation
+                     completion:(PRTNavigationControllerCompletionBlock)completion
+{
+  PRTUINavigationControllerCompletionBlockHelper *helper = [self prt_setupDelegateWithPreparation:preparation completion:completion];
+  NSUInteger indexOfVCToPopTo = [self.viewControllers indexOfObject:viewController];
+  NSArray *poppedViewControllers = [self.viewControllers objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(indexOfVCToPopTo + 1, self.viewControllers.count - 1 - indexOfVCToPopTo)]];
+  helper.poppedViewControllers = poppedViewControllers;
+  [self popToViewController:viewController animated:animated];
 }
 
 - (void)prt_popToRootViewControllerAnimated:(BOOL)animated
-                               preparation:(PRTNavigationControllerPreparationBlock)preparation
-                                completion:(PRTNavigationControllerCompletionBlock)completion
+                                preparation:(PRTNavigationControllerPreparationBlock)preparation
+                                 completion:(PRTNavigationControllerCompletionBlock)completion
 {
-    PRTUINavigationControllerCompletionBlockHelper *helper = [self prt_setupDelegateWithPreparation:preparation completion:completion];
-    NSArray *poppedViewControllers = [self.viewControllers objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, self.viewControllers.count - 1)]];
-    helper.poppedViewControllers = poppedViewControllers;
-    [self popToRootViewControllerAnimated:animated];
+  PRTUINavigationControllerCompletionBlockHelper *helper = [self prt_setupDelegateWithPreparation:preparation completion:completion];
+  NSArray *poppedViewControllers = [self.viewControllers objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, self.viewControllers.count - 1)]];
+  helper.poppedViewControllers = poppedViewControllers;
+  [self popToRootViewControllerAnimated:animated];
 }
 
 - (void)prt_setViewControllers:(NSArray *)viewControllers
-                     animated:(BOOL)animated
-                  preparation:(PRTNavigationControllerPreparationBlock)preparation
-                   completion:(PRTNavigationControllerCompletionBlock)completion
+                      animated:(BOOL)animated
+                   preparation:(PRTNavigationControllerPreparationBlock)preparation
+                    completion:(PRTNavigationControllerCompletionBlock)completion
 {
-    [self prt_setupDelegateWithPreparation:preparation completion:completion];
-    [self setViewControllers:viewControllers animated:animated];
+  [self prt_setupDelegateWithPreparation:preparation completion:completion];
+  [self setViewControllers:viewControllers animated:animated];
 }
 
 @end

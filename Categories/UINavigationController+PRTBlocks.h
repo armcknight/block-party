@@ -36,8 +36,8 @@
  *  @param poppedViewControllers   Any view controllers that were popped.
  */
 typedef void(^PRTNavigationControllerCompletionBlock)(UINavigationController *navigationController,
-                                                     UIViewController *presentedViewController,
-                                                     NSArray *poppedViewControllers);
+                                                      UIViewController *presentedViewController,
+                                                      NSArray *poppedViewControllers);
 
 /**
  *  A block containing logic to be performed before the navigation controller has begun a push/pop (executed before @c navigationController:willShowViewController:animated:).
@@ -46,11 +46,11 @@ typedef void(^PRTNavigationControllerCompletionBlock)(UINavigationController *na
  *  @param presentingViewController The view controller that will be on top of the nav stack after the push/pop.
  */
 typedef void(^PRTNavigationControllerPreparationBlock)(UINavigationController *navigationController,
-                                                      UIViewController *presentingViewController);
+                                                       UIViewController *presentingViewController);
 /**
  *  Category that provides a block based interface for performing operations after push/pop to/from a navigation controller. The callbacks in UINavigationControllerDelegate are still called, with the total order of operations being:
  *
- *      @code 
+ *      @code
  *      1. preparation block
  *      2. navigationController:willShowViewController:animated:
  *      3. navigationController:didShowViewController:animated:
@@ -67,9 +67,9 @@ typedef void(^PRTNavigationControllerPreparationBlock)(UINavigationController *n
  *  @param completion     Block to be called after viewController has been shown (executes after callback to @c navigationController:didShowViewController:animated:).
  */
 - (void)prt_pushViewController:(UIViewController *)viewController
-                     animated:(BOOL)animated
-                  preparation:(PRTNavigationControllerPreparationBlock)preparation
-                   completion:(PRTNavigationControllerCompletionBlock)completion;
+                      animated:(BOOL)animated
+                   preparation:(PRTNavigationControllerPreparationBlock)preparation
+                    completion:(PRTNavigationControllerCompletionBlock)completion;
 
 /**
  *  Pop the topmost view controller from the nav stack with preparation and completion blocks.
@@ -79,8 +79,8 @@ typedef void(^PRTNavigationControllerPreparationBlock)(UINavigationController *n
  *  @param completion     Block to be called after viewController has been shown (executes after callback to @c navigationController:didShowViewController:animated:).
  */
 - (void)prt_popViewControllerAnimated:(BOOL)animated
-                         preparation:(PRTNavigationControllerPreparationBlock)preparation
-                          completion:(PRTNavigationControllerCompletionBlock)completion;
+                          preparation:(PRTNavigationControllerPreparationBlock)preparation
+                           completion:(PRTNavigationControllerCompletionBlock)completion;
 
 /**
  *  Pops view controllers from the nav stack to reveal a desired view controller with preparation and completion blocks.
@@ -91,9 +91,9 @@ typedef void(^PRTNavigationControllerPreparationBlock)(UINavigationController *n
  *  @param completion     Block to be called after viewController has been shown (executes after callback to @c navigationController:didShowViewController:animated:).
  */
 - (void)prt_popToViewController:(UIViewController *)viewController
-                      animated:(BOOL)animated
-                   preparation:(PRTNavigationControllerPreparationBlock)preparation
-                    completion:(PRTNavigationControllerCompletionBlock)completion;
+                       animated:(BOOL)animated
+                    preparation:(PRTNavigationControllerPreparationBlock)preparation
+                     completion:(PRTNavigationControllerCompletionBlock)completion;
 
 /**
  *  Pop all but the root view controller from the nav stack with preparation and completion blocks.
@@ -103,8 +103,8 @@ typedef void(^PRTNavigationControllerPreparationBlock)(UINavigationController *n
  *  @param completion     Block to be called after viewController has been shown (executes after callback to @c navigationController:didShowViewController:animated:).
  */
 - (void)prt_popToRootViewControllerAnimated:(BOOL)animated
-                               preparation:(PRTNavigationControllerPreparationBlock)preparation
-                                completion:(PRTNavigationControllerCompletionBlock)completion;
+                                preparation:(PRTNavigationControllerPreparationBlock)preparation
+                                 completion:(PRTNavigationControllerCompletionBlock)completion;
 
 /**
  *  Push a collection of view controllers onto the nav stack with preparation and completion blocks.
@@ -115,9 +115,9 @@ typedef void(^PRTNavigationControllerPreparationBlock)(UINavigationController *n
  *  @param completion      Block to be called after viewController has been shown (executes after callback to @c navigationController:didShowViewController:animated:).
  */
 - (void)prt_setViewControllers:(NSArray *)viewControllers
-                     animated:(BOOL)animated
-                  preparation:(PRTNavigationControllerPreparationBlock)preparation
-                   completion:(PRTNavigationControllerCompletionBlock)completion NS_AVAILABLE_IOS(3_0);
+                      animated:(BOOL)animated
+                   preparation:(PRTNavigationControllerPreparationBlock)preparation
+                    completion:(PRTNavigationControllerCompletionBlock)completion NS_AVAILABLE_IOS(3_0);
 
 
 @end
