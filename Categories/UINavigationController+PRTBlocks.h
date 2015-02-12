@@ -3,7 +3,7 @@
 //
 //  Created by Andrew McKnight on 5/28/14.
 //
-//  Copyright (c) 2014 Andrew McKnight.
+//  Copyright (c) 2015 Andrew McKnight.
 //  http://armcknight.com
 //
 //  Permission is hereby granted, free of charge, to any person obtaining
