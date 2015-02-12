@@ -31,7 +31,8 @@ if (expression) {
 ```
 then you can combine the assert and conditional using this utility macro:
 ```objective-c
-PRTAssert(^BOOL { return YES == NO; },
-          ^{ NSLog(@"passed :D"); },
-          ^{ NSLog(@"failed D:"); },
-          @"Uh, hello, YES and NO are as unequivalent as it gets.")
+PRTAssert(expression,
+          ^{ NSLog(@"production success code"); },
+          ^{ NSLog(@"production failure code"); },
+          @"something went wrong")
+```
