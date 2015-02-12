@@ -27,7 +27,7 @@
                            @"crash the app! Try running the demo with the "
                            @"Asserts Disabled build scheme.";
 #else
-  PRTAssert(^BOOL { return trueExpression; },
+  PRTAssert(trueExpression,
             ^{ self.messageLabel.text = @"passed :D"; },
             ^{ self.messageLabel.text = @"failed D:"; },
             @"This is a true expression. Why am I asserting?")
@@ -40,7 +40,7 @@
                            @"crash the app! Try running the demo with the "
                            @"Asserts Disabled build scheme.";
 #else
-  PRTAssert(^BOOL { return falseExpression; },
+  PRTAssert(falseExpression,
             ^{ self.messageLabel.text = @"passed :D"; },
             ^{ self.messageLabel.text = @"failed D:"; },
             @"I'm in production. Why am I asserting?")
@@ -49,7 +49,7 @@
 
 - (IBAction)testTrueDevAssert:(id)sender {
 #if NS_BLOCK_ASSERTIONS == 0
-  PRTAssert(^BOOL { return trueExpression; },
+  PRTAssert(trueExpression,
             ^{ self.messageLabel.text = @"passed :D"; },
             ^{ self.messageLabel.text = @"failed D:"; },
             @"This is a true expression. Why am I asserting?")
@@ -62,7 +62,7 @@
 
 - (IBAction)testFalseDevAssert:(id)sender {
 #if NS_BLOCK_ASSERTIONS == 0
-  PRTAssert(^BOOL { return falseExpression; },
+  PRTAssert(falseExpression,
             ^{ self.messageLabel.text = @"passed :D"; },
             ^{ self.messageLabel.text = @"failed D:"; },
             @"This is a true expression. Why am I asserting?")
