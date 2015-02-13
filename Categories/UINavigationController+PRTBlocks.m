@@ -66,18 +66,14 @@ static const void * kPRTNavigationControllerCompletionBlockHelperKey = &kPRTNavi
        didShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated
 {
-  // call previous delegate's callback implementation, if any
-  
   dispatch_async(dispatch_get_main_queue(), ^{
     if ( [self.previousDelegate respondsToSelector:@selector(navigationController:didShowViewController:animated:)] ) {
       [self.previousDelegate navigationController:navigationController didShowViewController:viewController animated:animated];
     }
     
-    // reset the delegates to the way they were before calling the block-based method
     navigationController.delegate = self.previousDelegate;
     self.previousDelegate = nil;
     
-    // call the completion block
     if ( self.completionBlock != nil ) {
       PRTNavigationControllerCompletionBlock completion = self.completionBlock;
       self.completionBlock = nil;
