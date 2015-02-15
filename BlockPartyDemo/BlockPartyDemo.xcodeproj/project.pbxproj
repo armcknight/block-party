@@ -136,8 +136,7 @@
 				49F02BE71A8B9E98008B0C5D /* UINavigationController+PRTBlocks.h */,
 				49F02BE81A8B9E98008B0C5D /* UINavigationController+PRTBlocks.m */,
 			);
-			name = Categories;
-			path = ../Categories;
+			path = Categories;
 			sourceTree = "<group>";
 		};
 		49F02BED1A8BA8E4008B0C5D /* Utilities */ = {
@@ -145,7 +144,7 @@
 			children = (
 				49F02BEA1A8BA8DF008B0C5D /* PRTAssert.h */,
 			);
-			name = Utilities;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		49F02BEE1A8BA8F3008B0C5D /* Block Party */ = {
@@ -155,6 +154,7 @@
 				49F02BE61A8B9E98008B0C5D /* Categories */,
 			);
 			name = "Block Party";
+			path = ../BlockParty;
 			sourceTree = "<group>";
 		};
 		49F02BF41A8BAEAF008B0C5D /* Demo View Controllers */ = {
@@ -486,6 +486,7 @@
 				49F02BDF1A8B9CC9008B0C5D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		49F02BE01A8B9CC9008B0C5D /* Build configuration list for PBXNativeTarget "BlockPartyDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -494,6 +495,7 @@
 				49F02BE21A8B9CC9008B0C5D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
