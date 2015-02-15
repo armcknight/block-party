@@ -1,4 +1,5 @@
-# Block Party!
+# Block Party! <img src="https://img.shields.io/cocoapods/v/BlockParty.svg" />
+
 Lego of the delegate pattern.
 
 ## De-delegatized
