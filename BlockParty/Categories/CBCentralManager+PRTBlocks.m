@@ -17,10 +17,6 @@
 
 static const void *kPRTCBCentralManagerDelegateKey =
     &kPRTCBCentralManagerDelegateKey;
-static NSString *const kPRTCallbackKeyCBPeripheralDidConnectSuccess =
-    @"kPRTCallbackKeyCBPeripheralDidConnectSuccess";
-static NSString *const kPRTCallbackkeyCBPeripheralDidConnectFailure =
-    @"kPRTCallbackkeyCBPeripheralDidConnectFailure";
 
 @interface PRTCBCentralManagerDelegate : NSObject<CBCentralManagerDelegate>
 
@@ -116,9 +112,9 @@ static NSString *const kPRTCallbackkeyCBPeripheralDidConnectFailure =
     didConnectPeripheral:(CBPeripheral *)peripheral {
   PRTCBPeripheralBlock completion =
       self.callbackSelectorBlockMap
-          [kPRTCallbackKeyCBPeripheralDidConnectSuccess];
+          [NSStringFromSelector(_cmd)];
   if (completion) {
-    PRT_EXECUTE_ON_MAIN_THREAD(completion(central, peripheral));
+    PRT_EXECUTE_ON_MAIN_THREAD(completion(central, peripheral, nil));
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate centralManager:central
@@ -129,9 +125,9 @@ static NSString *const kPRTCallbackkeyCBPeripheralDidConnectFailure =
 - (void)centralManager:(CBCentralManager *)central
     didFailToConnectPeripheral:(CBPeripheral *)peripheral
                          error:(NSError *)error {
-  PRTCBPeripheralErrorBlock completion =
+  PRTCBPeripheralBlock completion =
       self.callbackSelectorBlockMap
-          [kPRTCallbackkeyCBPeripheralDidConnectFailure];
+          [NSStringFromSelector(_cmd)];
   if (completion) {
     PRT_EXECUTE_ON_MAIN_THREAD(completion(central, peripheral, error));
   }
@@ -145,7 +141,7 @@ static NSString *const kPRTCallbackkeyCBPeripheralDidConnectFailure =
 - (void)centralManager:(CBCentralManager *)central
     didDisconnectPeripheral:(CBPeripheral *)peripheral
                       error:(NSError *)error {
-  PRTCBPeripheralErrorBlock completion =
+  PRTCBPeripheralBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
     PRT_EXECUTE_ON_MAIN_THREAD(completion(central, peripheral, error));
@@ -206,20 +202,19 @@ static NSString *const kPRTCallbackkeyCBPeripheralDidConnectFailure =
 
 - (void)prt_connectPeripheral:(CBPeripheral *)peripheral
                       options:(NSDictionary *)options
-                      success:(PRTCBPeripheralBlock)success
-                      failure:(PRTCBPeripheralErrorBlock)failure {
+                   completion:(PRTCBPeripheralBlock)completion {
   PRTCBCentralManagerDelegate *delegate = [self prt_delegate];
   delegate
-      .callbackSelectorBlockMap[kPRTCallbackKeyCBPeripheralDidConnectSuccess] =
-      [success copy];
+      .callbackSelectorBlockMap[NSStringFromSelector(@selector(centralManager:didConnectPeripheral:))] =
+      [completion copy];
   delegate
-      .callbackSelectorBlockMap[kPRTCallbackkeyCBPeripheralDidConnectFailure] =
-      [failure copy];
+      .callbackSelectorBlockMap[NSStringFromSelector(@selector(centralManager:didFailToConnectPeripheral:error:))] =
+      [completion copy];
   [self connectPeripheral:peripheral options:options];
 }
 
 - (void)prt_cancelPeripheralConnection:(CBPeripheral *)peripheral
-                            completion:(PRTCBPeripheralErrorBlock)completion {
+                            completion:(PRTCBPeripheralBlock)completion {
   [[self prt_delegate] callbackSelectorBlockMap][NSStringFromSelector(
       @selector(centralManager:didDisconnectPeripheral:error:))] =
       [completion copy];

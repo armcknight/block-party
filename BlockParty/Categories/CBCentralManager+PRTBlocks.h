@@ -12,8 +12,6 @@ typedef void (^PRTCBCentralBlock)(CBCentralManager *central);
 typedef void (^PRTCBCentralRestoreBlock)(CBCentralManager *central,
                                          NSDictionary *stateDict);
 typedef void (^PRTCBPeripheralBlock)(CBCentralManager *central,
-                                     CBPeripheral *peripheral);
-typedef void (^PRTCBPeripheralErrorBlock)(CBCentralManager *central,
                                           CBPeripheral *peripheral,
                                           NSError *error);
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 7
@@ -49,10 +47,9 @@ typedef void (^PRTCBPeripheralFoundBlock)(CBCentralManager *central,
 
 - (void)prt_connectPeripheral:(CBPeripheral *)peripheral
                       options:(NSDictionary *)options
-                      success:(PRTCBPeripheralBlock)success
-                      failure:(PRTCBPeripheralErrorBlock)failure;
+                   completion:(PRTCBPeripheralBlock)completion;
 
 - (void)prt_cancelPeripheralConnection:(CBPeripheral *)peripheral
-                            completion:(PRTCBPeripheralErrorBlock)completion;
+                            completion:(PRTCBPeripheralBlock)completion;
 
 @end

@@ -141,22 +141,24 @@
 
   NSArray* services = @[ [CBUUID UUIDWithString:TRANSFER_SERVICE_UUID] ];
 
-  PRTCBPeripheralFoundBlock foundCompletion =
-      ^(CBCentralManager* central, CBPeripheral* peripheral,
-        NSDictionary* advData, NSNumber* RSSI) {
-        self.peripheral = peripheral;
-        //        [central stopScan];
-        [central prt_connectPeripheral:peripheral
-            options:nil
-            success:^(CBCentralManager* central, CBPeripheral* peripheral) {
-              [peripheral prt_discoverServices:services
-                                    completion:serviceCompletion];
-            }
-            failure:^(CBCentralManager* central, CBPeripheral* peripheral,
-                      NSError* error) {
-              NSLog(@"error connecting %@", error);
-            }];
-      };
+  PRTCBPeripheralFoundBlock foundCompletion = ^(CBCentralManager* central,
+                                                CBPeripheral* peripheral,
+                                                NSDictionary* advData,
+                                                NSNumber* RSSI) {
+    self.peripheral = peripheral;
+    //        [central stopScan];
+    [central prt_connectPeripheral:peripheral
+                           options:nil
+                        completion:^(CBCentralManager* central,
+                                     CBPeripheral* peripheral, NSError* error) {
+                          if (error) {
+                            NSLog(@"error connecting %@", error);
+                          } else {
+                            [peripheral prt_discoverServices:services
+                                                  completion:serviceCompletion];
+                          }
+                        }];
+  };
 
   [self.centralManager
       prt_centralManagerDidUpdateStateHandler:^(CBCentralManager* central) {
