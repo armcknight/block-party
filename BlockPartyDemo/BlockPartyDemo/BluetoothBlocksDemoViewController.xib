@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14D98g" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BluetoothBlocksDemoViewController">
+            <connections>
+                <outlet property="inputTextField" destination="daW-k0-v6h" id="De7-ZI-hbA"/>
+                <outlet property="receivedTextLabel" destination="cwd-Nc-RQx" id="nrx-Ea-7xv"/>
+                <outlet property="selectionButtons" destination="gOE-90-bsl" id="Bbs-2z-e7B"/>
+                <outlet property="sendButton" destination="yEk-q7-Id1" id="QQT-Vu-31Y"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gOE-90-bsl">
+                    <rect key="frame" x="245" y="239" width="110" height="123"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k12-rr-l6F">
+                            <rect key="frame" x="28" y="20" width="50" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="9DP-NX-10r"/>
+                            </constraints>
+                            <state key="normal" title="Central">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="centralPressed:" destination="-1" eventType="touchUpInside" id="Qct-e7-KAx"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfU-6Z-pa6">
+                            <rect key="frame" x="20" y="73" width="70" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="rKa-HD-Gga"/>
+                            </constraints>
+                            <state key="normal" title="Peripheral">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="peripheralPressed:" destination="-1" eventType="touchUpInside" id="vpP-GI-1Eq"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="mfU-6Z-pa6" secondAttribute="trailing" constant="20" id="1UN-wv-yeE"/>
+                        <constraint firstAttribute="bottom" secondItem="mfU-6Z-pa6" secondAttribute="bottom" constant="20" id="5a2-Se-yA4"/>
+                        <constraint firstAttribute="trailing" secondItem="k12-rr-l6F" secondAttribute="trailing" constant="32" id="5bY-Rk-N0i"/>
+                        <constraint firstItem="k12-rr-l6F" firstAttribute="leading" secondItem="gOE-90-bsl" secondAttribute="leading" constant="28" id="V4Q-PQ-rmW"/>
+                        <constraint firstItem="k12-rr-l6F" firstAttribute="top" secondItem="gOE-90-bsl" secondAttribute="top" constant="20" id="YvS-2W-RmC"/>
+                        <constraint firstItem="mfU-6Z-pa6" firstAttribute="top" secondItem="k12-rr-l6F" secondAttribute="bottom" constant="23" id="fI1-Kn-EWW"/>
+                        <constraint firstItem="mfU-6Z-pa6" firstAttribute="leading" secondItem="gOE-90-bsl" secondAttribute="leading" constant="20" id="lM4-K6-7Ie"/>
+                    </constraints>
+                </view>
+                <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="daW-k0-v6h">
+                    <rect key="frame" x="180" y="285" width="100" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="tRj-Qn-KeC"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yEk-q7-Id1">
+                    <rect key="frame" x="320" y="285" width="36" height="30"/>
+                    <state key="normal" title="Send">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="sendPressed:" destination="-1" eventType="touchUpInside" id="PkI-LE-hdE"/>
+                    </connections>
+                </button>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwd-Nc-RQx">
+                    <rect key="frame" x="20" y="290" width="560" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="centerY" secondItem="gOE-90-bsl" secondAttribute="centerY" id="6bi-rg-Eb1"/>
+                <constraint firstAttribute="trailing" secondItem="cwd-Nc-RQx" secondAttribute="trailing" constant="20" id="70O-6r-wAp"/>
+                <constraint firstAttribute="centerY" secondItem="cwd-Nc-RQx" secondAttribute="centerY" id="YQn-S2-qiC"/>
+                <constraint firstAttribute="centerX" secondItem="gOE-90-bsl" secondAttribute="centerX" id="Yfa-fr-4Pc"/>
+                <constraint firstAttribute="centerY" secondItem="yEk-q7-Id1" secondAttribute="centerY" id="eKt-nc-Asu"/>
+                <constraint firstAttribute="centerY" secondItem="daW-k0-v6h" secondAttribute="centerY" id="mbR-Pq-yUn"/>
+                <constraint firstAttribute="centerX" secondItem="daW-k0-v6h" secondAttribute="trailing" constant="20" id="qvT-q6-VVU"/>
+                <constraint firstAttribute="centerX" secondItem="yEk-q7-Id1" secondAttribute="leading" constant="-20" id="sFz-42-MhI"/>
+                <constraint firstItem="cwd-Nc-RQx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="uLW-J4-B5u"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

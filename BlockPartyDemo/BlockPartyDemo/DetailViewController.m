@@ -10,6 +10,7 @@
 
 #import "NavBlocksDemoViewController.h"
 #import "AssertDemoViewController.h"
+#import "BluetoothBlocksDemoViewController.h"
 
 @interface DetailViewController ()
 
@@ -22,7 +23,7 @@
 }
 
 - (UIRectEdge)edgesForExtendedLayout {
-  return UIRectEdgeLeft|UIRectEdgeRight|UIRectEdgeBottom;
+  return UIRectEdgeLeft | UIRectEdgeRight | UIRectEdgeBottom;
 }
 
 - (void)viewDidLoad {
@@ -37,6 +38,9 @@
     case PRTDemoAsserts:
       demoVC =
           [[AssertDemoViewController alloc] initWithNibName:nil bundle:nil];
+    case PRTDemoBluetooth:
+      demoVC = [[BluetoothBlocksDemoViewController alloc] initWithNibName:nil
+                                                                   bundle:nil];
     default:
       break;
   }

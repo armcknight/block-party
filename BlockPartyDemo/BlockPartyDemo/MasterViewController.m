@@ -19,30 +19,35 @@
 
 - (void)awakeFromNib {
   [super awakeFromNib];
-  if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-      self.clearsSelectionOnViewWillAppear = NO;
-      self.preferredContentSize = CGSizeMake(320.0, 600.0);
+  if ([[UIDevice currentDevice] userInterfaceIdiom] ==
+      UIUserInterfaceIdiomPad) {
+    self.clearsSelectionOnViewWillAppear = NO;
+    self.preferredContentSize = CGSizeMake(320.0, 600.0);
   }
 }
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  
-  self.demos = @[@"Nav Controller Blocks", @"Assert Blocks"];
-  
-  self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+
+  self.demos =
+      @[ @"Nav Controller Blocks", @"Assert Blocks", @"Bluetooth Blocks" ];
+
+  self.detailViewController = (DetailViewController *)
+      [[self.splitViewController.viewControllers lastObject] topViewController];
 }
 
 #pragma mark - Segues
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
   if ([[segue identifier] isEqualToString:@"showDetail"]) {
-      NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-      DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
-      controller.demo = indexPath.row;
-      controller.title = self.demos[indexPath.row];
-      controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
-      controller.navigationItem.leftItemsSupplementBackButton = YES;
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    DetailViewController *controller = (DetailViewController *)
+        [[segue destinationViewController] topViewController];
+    controller.demo = indexPath.row;
+    controller.title = self.demos[indexPath.row];
+    controller.navigationItem.leftBarButtonItem =
+        self.splitViewController.displayModeButtonItem;
+    controller.navigationItem.leftItemsSupplementBackButton = YES;
   }
 }
 
@@ -52,12 +57,16 @@
   return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView
+    numberOfRowsInSection:(NSInteger)section {
   return self.demos.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+  UITableViewCell *cell =
+      [tableView dequeueReusableCellWithIdentifier:@"Cell"
+                                      forIndexPath:indexPath];
 
   cell.textLabel.text = self.demos[indexPath.row];
   return cell;

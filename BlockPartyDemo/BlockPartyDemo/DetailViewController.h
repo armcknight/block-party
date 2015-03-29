@@ -10,12 +10,12 @@
 
 typedef NS_ENUM(NSUInteger, PRTDemo) {
   PRTDemoNavBlocks,
-  PRTDemoAsserts
+  PRTDemoAsserts,
+  PRTDemoBluetooth
 };
 
 @interface DetailViewController : UIViewController
 
-@property (assign, nonatomic) PRTDemo demo;
+@property(assign, nonatomic) PRTDemo demo;
 
 @end
-

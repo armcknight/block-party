@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49734E721AC71EE500060CDF /* CBPeripheralManager+PRTBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 49734E711AC71EE500060CDF /* CBPeripheralManager+PRTBlocks.m */; };
+		49EB38721ABF29BE00C9AB99 /* CBPeripheral+PRTBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EB38711ABF29BE00C9AB99 /* CBPeripheral+PRTBlocks.m */; };
+		49EB38761ABF837B00C9AB99 /* BluetoothBlocksDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EB38741ABF837B00C9AB99 /* BluetoothBlocksDemoViewController.m */; };
+		49EB38771ABF837B00C9AB99 /* BluetoothBlocksDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49EB38751ABF837B00C9AB99 /* BluetoothBlocksDemoViewController.xib */; };
+		49EB387A1ABF864000C9AB99 /* CBCentralManager+PRTBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EB38791ABF864000C9AB99 /* CBCentralManager+PRTBlocks.m */; };
 		49F02BBD1A8B9CC9008B0C5D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F02BBC1A8B9CC9008B0C5D /* main.m */; };
 		49F02BC01A8B9CC9008B0C5D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F02BBF1A8B9CC9008B0C5D /* AppDelegate.m */; };
 		49F02BC31A8B9CC9008B0C5D /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F02BC21A8B9CC9008B0C5D /* MasterViewController.m */; };
@@ -32,6 +37,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		49734E701AC71EE500060CDF /* CBPeripheralManager+PRTBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBPeripheralManager+PRTBlocks.h"; sourceTree = "<group>"; };
+		49734E711AC71EE500060CDF /* CBPeripheralManager+PRTBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBPeripheralManager+PRTBlocks.m"; sourceTree = "<group>"; };
+		49EB38701ABF29BE00C9AB99 /* CBPeripheral+PRTBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBPeripheral+PRTBlocks.h"; sourceTree = "<group>"; };
+		49EB38711ABF29BE00C9AB99 /* CBPeripheral+PRTBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBPeripheral+PRTBlocks.m"; sourceTree = "<group>"; };
+		49EB38731ABF837B00C9AB99 /* BluetoothBlocksDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothBlocksDemoViewController.h; sourceTree = "<group>"; };
+		49EB38741ABF837B00C9AB99 /* BluetoothBlocksDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BluetoothBlocksDemoViewController.m; sourceTree = "<group>"; };
+		49EB38751ABF837B00C9AB99 /* BluetoothBlocksDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BluetoothBlocksDemoViewController.xib; sourceTree = "<group>"; };
+		49EB38781ABF864000C9AB99 /* CBCentralManager+PRTBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBCentralManager+PRTBlocks.h"; sourceTree = "<group>"; };
+		49EB38791ABF864000C9AB99 /* CBCentralManager+PRTBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBCentralManager+PRTBlocks.m"; sourceTree = "<group>"; };
 		49F02BB71A8B9CC9008B0C5D /* BlockPartyDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlockPartyDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49F02BBB1A8B9CC9008B0C5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49F02BBC1A8B9CC9008B0C5D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -133,6 +147,12 @@
 		49F02BE61A8B9E98008B0C5D /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				49EB38781ABF864000C9AB99 /* CBCentralManager+PRTBlocks.h */,
+				49EB38791ABF864000C9AB99 /* CBCentralManager+PRTBlocks.m */,
+				49EB38701ABF29BE00C9AB99 /* CBPeripheral+PRTBlocks.h */,
+				49EB38711ABF29BE00C9AB99 /* CBPeripheral+PRTBlocks.m */,
+				49734E701AC71EE500060CDF /* CBPeripheralManager+PRTBlocks.h */,
+				49734E711AC71EE500060CDF /* CBPeripheralManager+PRTBlocks.m */,
 				49F02BE71A8B9E98008B0C5D /* UINavigationController+PRTBlocks.h */,
 				49F02BE81A8B9E98008B0C5D /* UINavigationController+PRTBlocks.m */,
 			);
@@ -163,6 +183,9 @@
 				49F02BEF1A8BAEA4008B0C5D /* AssertDemoViewController.h */,
 				49F02BF01A8BAEA4008B0C5D /* AssertDemoViewController.m */,
 				49F02BF11A8BAEA4008B0C5D /* AssertDemoViewController.xib */,
+				49EB38731ABF837B00C9AB99 /* BluetoothBlocksDemoViewController.h */,
+				49EB38741ABF837B00C9AB99 /* BluetoothBlocksDemoViewController.m */,
+				49EB38751ABF837B00C9AB99 /* BluetoothBlocksDemoViewController.xib */,
 				49F02BE31A8B9E22008B0C5D /* NavBlocksDemoViewController.h */,
 				49F02BE41A8B9E23008B0C5D /* NavBlocksDemoViewController.m */,
 			);
@@ -268,6 +291,7 @@
 				49F02BC91A8B9CC9008B0C5D /* Main.storyboard in Resources */,
 				49F02BCE1A8B9CC9008B0C5D /* LaunchScreen.xib in Resources */,
 				49F02BCB1A8B9CC9008B0C5D /* Images.xcassets in Resources */,
+				49EB38771ABF837B00C9AB99 /* BluetoothBlocksDemoViewController.xib in Resources */,
 				49F02BF31A8BAEA4008B0C5D /* AssertDemoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,10 +311,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				49F02BE91A8B9E98008B0C5D /* UINavigationController+PRTBlocks.m in Sources */,
+				49734E721AC71EE500060CDF /* CBPeripheralManager+PRTBlocks.m in Sources */,
 				49F02BC01A8B9CC9008B0C5D /* AppDelegate.m in Sources */,
 				49F02BF21A8BAEA4008B0C5D /* AssertDemoViewController.m in Sources */,
+				49EB38721ABF29BE00C9AB99 /* CBPeripheral+PRTBlocks.m in Sources */,
+				49EB38761ABF837B00C9AB99 /* BluetoothBlocksDemoViewController.m in Sources */,
 				49F02BE51A8B9E23008B0C5D /* NavBlocksDemoViewController.m in Sources */,
 				49F02BC31A8B9CC9008B0C5D /* MasterViewController.m in Sources */,
+				49EB387A1ABF864000C9AB99 /* CBCentralManager+PRTBlocks.m in Sources */,
 				49F02BBD1A8B9CC9008B0C5D /* main.m in Sources */,
 				49F02BC61A8B9CC9008B0C5D /* DetailViewController.m in Sources */,
 			);
