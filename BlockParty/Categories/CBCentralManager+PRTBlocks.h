@@ -65,12 +65,16 @@ typedef void (^PRTCBPeripheralFoundBlock)(CBCentralManager *central,
  *  A category providing block-based methods to replace the API's delegate 
  *  pattern for things like scanning for peripherals, connecting and 
  *  disconnecting them, and reading and writing data.
+ *
+ *  @see @c CBCentralManager
  */
 @interface CBCentralManager (PRTBlocks)
 
 /**
  *  Set a block to execute whenever the central manager's state changes 
  *  (replaces @c centralManagerDidUpdateState:).
+ *
+ *  @see @c centralManagerDidUpdateState:
  *
  *  @param handler Block to be executed on state changes.
  */
@@ -81,6 +85,8 @@ typedef void (^PRTCBPeripheralFoundBlock)(CBCentralManager *central,
  *  state from a previous instance (replaces 
  *  @c centralManager:willRestoreState:).
  *
+ *  @see @c centralManager:willRestoreState:
+ *
  *  @param handler Block to be called where you can synchronize the app's state 
  *         with the Core Bluetooth system.
  */
@@ -88,8 +94,12 @@ typedef void (^PRTCBPeripheralFoundBlock)(CBCentralManager *central,
         (PRTCBCentralRestoreBlock)handler;
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 7
+
 /**
  *  Ask for a list of peripherals matching the provided UUIDs.
+ *
+ *  @see @c retrievePeripheralsWithIdentifiers:
+ *  @see @c centralManager:didRetrievePeripherals:
  *
  *  @param peripheralUUIDs List of UUIDs to match.
  *  @param completion      Block called providing all the detected peripherals.
@@ -100,6 +110,9 @@ typedef void (^PRTCBPeripheralFoundBlock)(CBCentralManager *central,
 /**
  *  Ask for a list of all peripherals currently connected to this device.
  *
+ *  @see @c retrieveConnectedPeripherals
+ *  @see @c centralManager:didRetrieveConnectedPeripherals:
+ *
  *  @param completion Block called returning the list of peripherals.
  */
 - (void)prt_retrieveConnectedPeripheralsWithCompletion:
@@ -109,6 +122,9 @@ typedef void (^PRTCBPeripheralFoundBlock)(CBCentralManager *central,
 /**
  *  Scan for peripherals matching the list of service UUIDs provided and call 
  *  the completion block for each one.
+ *
+ *  @see @c scanForPeripheralsWithServices:options:
+ *  @see @c centralManager:didDiscoverPeripheral:advertisementData:RSSI:
  *
  *  @param serviceUUIDs List of UUIDs of services to match in peripherals.
  *  @param options      Optional dictionary of options for the scan.
@@ -124,6 +140,10 @@ typedef void (^PRTCBPeripheralFoundBlock)(CBCentralManager *central,
  *  Connect a discovered peripheral and call the completion block, reporting any 
  *  errors encountered.
  *
+ *  @see @c connectPeripheral:options:
+ *  @see @c centralManager:didConnectPeripheral:
+ *  @see @c centralManager:didFailToConnectPeripheral:error:
+ *
  *  @param peripheral Peripheral to connect.
  *  @param options    Optional dictionary of options for connection behavior.
  *  @param completion Block called on success or failure to connect.
@@ -134,6 +154,9 @@ typedef void (^PRTCBPeripheralFoundBlock)(CBCentralManager *central,
 
 /**
  *  Close an active or pending connection to a peripheral.
+ *
+ *  @see @c cancelPeripheralConnection:
+ *  @see @c centralManager:didDisconnectPeripheral:error:
  *
  *  @param peripheral Peripheral to disconnect.
  *  @param completion Block called when connection is closed.
