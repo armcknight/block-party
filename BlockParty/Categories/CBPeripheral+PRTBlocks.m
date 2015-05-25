@@ -36,6 +36,51 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
 
 #pragma mark - CBPeripheralDelegate
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 6
+
+- (void)peripheralDidUpdateName:(CBPeripheral *)peripheral {
+  PRTPeripheralBlock handler =
+      self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
+  if (handler) {
+    PRT_EXECUTE_ON_MAIN_THREAD(handler(peripheral, nil));
+  }
+  if ([self.previousDelegate respondsToSelector:_cmd]) {
+    [self.previousDelegate peripheralDidUpdateName:peripheral];
+  }
+}
+
+#endif
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 7
+
+- (void)peripheralDidInvalidateServices:(CBPeripheral *)peripheral {
+  PRTPeripheralBlock handler =
+      self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
+  if (handler) {
+    PRT_EXECUTE_ON_MAIN_THREAD(handler(peripheral, nil));
+  }
+  if ([self.previousDelegate respondsToSelector:_cmd]) {
+    [self.previousDelegate peripheralDidInvalidateServices:peripheral];
+  }
+}
+
+#else
+
+- (void)peripheral:(CBPeripheral *)peripheral
+ didModifyServices:(NSArray *)invalidatedServices {
+  PRTInvalidatedServicesBlock handler =
+      self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
+  if (handler) {
+    PRT_EXECUTE_ON_MAIN_THREAD(handler(peripheral, invalidatedServices));
+  }
+  if ([self.previousDelegate respondsToSelector:_cmd]) {
+    [self.previousDelegate peripheral:peripheral
+                    didModifyServices:invalidatedServices];
+  }
+}
+
+#endif
+
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 8
 
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral
@@ -206,14 +251,46 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
 
 #pragma mark - Public
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 6
+
+- (void)prt_peripheralDidUpdateNameHandler:(PRTPeripheralBlock)handler {
+  [[self prt_delegate] callbackSelectorBlockMap][NSStringFromSelector(
+      @selector(peripheralDidUpdateName:))] = [handler copy];
+}
+
+#endif
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 7
+
+- (void)prt_peripheralDidInvalidateServicesHandler:(PRTPeripheralBlock)handler {
+  [[self prt_delegate] callbackSelectorBlockMap][NSStringFromSelector(
+      @selector(peripheralDidInvalidateServices:))] = [handler copy];
+}
+
+#else
+
+- (void)prt_peripheralDidModifyServicesHandler:
+    (PRTInvalidatedServicesBlock)handler {
+  [[self prt_delegate] callbackSelectorBlockMap][NSStringFromSelector(
+      @selector(peripheral:didModifyServices:))] = [handler copy];
+}
+
+#endif
+
 - (void)prt_readRSSIWithCompletion:(PRTRSSIBlock)completion {
+    
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 8
+
   [[self prt_delegate] callbackSelectorBlockMap][NSStringFromSelector(
       @selector(peripheralDidUpdateRSSI:error:))] = [completion copy];
+
 #else
+
   [[self prt_delegate] callbackSelectorBlockMap][NSStringFromSelector(
       @selector(peripheral:didReadRSSI:error:))] = [completion copy];
+
 #endif
+
   [self readRSSI];
 }
 

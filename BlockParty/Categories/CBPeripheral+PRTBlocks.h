@@ -12,6 +12,9 @@ typedef void (^PRTRSSIBlock)(CBPeripheral *peripheral, NSNumber *RSSI,
                              NSError *error);
 
 typedef void (^PRTPeripheralBlock)(CBPeripheral *peripheral, NSError *error);
+typedef void (^PRTInvalidatedServicesBlock)(CBPeripheral *peripheral,
+                                            NSArray *invalidatedServices);
+
 typedef void (^PRTServiceBlock)(CBPeripheral *peripheral, CBService *service,
                                 NSError *error);
 typedef void (^PRTCharacteristicBlock)(CBPeripheral *peripheral,
@@ -22,6 +25,20 @@ typedef void (^PRTDescriptorBlock)(CBPeripheral *peripheral,
                                    NSError *error);
 @interface CBPeripheral (PRTBlocks)
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 6
+
+- (void)prt_peripheralDidUpdateNameHandler:(PRTPeripheralBlock)handler;
+
+#endif
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 7
+- (void)prt_peripheralDidInvalidateServicesHandler:(PRTPeripheralBlock)handler;
+
+#else
+- (void)prt_peripheralDidModifyServicesHandler:
+    (PRTInvalidatedServicesBlock)handler;
+
+#endif
 - (void)prt_readRSSIWithCompletion:(PRTRSSIBlock)completion;
 
 - (void)prt_discoverServices:(NSArray *)serviceUUIDs
