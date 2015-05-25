@@ -10,11 +10,6 @@
 
 #import <objc/runtime.h>
 
-#define PRT_EXECUTE_ON_MAIN_THREAD(block)      \
-  dispatch_async(dispatch_get_main_queue(), ^{ \
-    block;                                     \
-  })
-
 static const void *kPRTCBCentralManagerDelegateKey =
     &kPRTCBCentralManagerDelegateKey;
 
@@ -41,7 +36,7 @@ static const void *kPRTCBCentralManagerDelegateKey =
   PRTCBCentralBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
-    PRT_EXECUTE_ON_MAIN_THREAD(completion(central));
+    completion(central);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate centralManagerDidUpdateState:central];
@@ -53,7 +48,7 @@ static const void *kPRTCBCentralManagerDelegateKey =
   PRTCBCentralRestoreBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
-    PRT_EXECUTE_ON_MAIN_THREAD(completion(central, dict));
+    completion(central, dict);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate centralManager:central willRestoreState:dict];
@@ -67,7 +62,7 @@ static const void *kPRTCBCentralManagerDelegateKey =
   PRTCBPeripheralsBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
-    PRT_EXECUTE_ON_MAIN_THREAD(completion(central, peripherals));
+    completion(central, peripherals);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate centralManager:central
@@ -80,7 +75,7 @@ static const void *kPRTCBCentralManagerDelegateKey =
   PRTCBPeripheralsBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
-    PRT_EXECUTE_ON_MAIN_THREAD(completion(central, peripherals));
+    completion(central, peripherals);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate centralManager:central
@@ -97,8 +92,7 @@ static const void *kPRTCBCentralManagerDelegateKey =
   PRTCBPeripheralFoundBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
-    PRT_EXECUTE_ON_MAIN_THREAD(
-        completion(central, peripheral, advertisementData, RSSI));
+    completion(central, peripheral, advertisementData, RSSI);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate centralManager:central
@@ -114,7 +108,7 @@ static const void *kPRTCBCentralManagerDelegateKey =
       self.callbackSelectorBlockMap
           [NSStringFromSelector(_cmd)];
   if (completion) {
-    PRT_EXECUTE_ON_MAIN_THREAD(completion(central, peripheral, nil));
+    completion(central, peripheral, nil);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate centralManager:central
@@ -129,7 +123,7 @@ static const void *kPRTCBCentralManagerDelegateKey =
       self.callbackSelectorBlockMap
           [NSStringFromSelector(_cmd)];
   if (completion) {
-    PRT_EXECUTE_ON_MAIN_THREAD(completion(central, peripheral, error));
+    completion(central, peripheral, error);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate centralManager:central
@@ -144,7 +138,7 @@ static const void *kPRTCBCentralManagerDelegateKey =
   PRTCBPeripheralBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
-    PRT_EXECUTE_ON_MAIN_THREAD(completion(central, peripheral, error));
+    completion(central, peripheral, error);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate centralManager:central

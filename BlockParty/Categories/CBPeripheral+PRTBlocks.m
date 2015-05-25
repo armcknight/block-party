@@ -10,11 +10,6 @@
 
 #import <objc/runtime.h>
 
-#define PRT_EXECUTE_ON_MAIN_THREAD(block)      \
-  dispatch_async(dispatch_get_main_queue(), ^{ \
-    block;                                     \
-  })
-
 static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
 
 @interface PRTCBPeripheralDelegate : NSObject<CBPeripheralDelegate>
@@ -42,7 +37,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
   PRTPeripheralBlock handler =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (handler) {
-    PRT_EXECUTE_ON_MAIN_THREAD(handler(peripheral, nil));
+    handler(peripheral, nil);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheralDidUpdateName:peripheral];
@@ -57,7 +52,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
   PRTPeripheralBlock handler =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (handler) {
-    PRT_EXECUTE_ON_MAIN_THREAD(handler(peripheral, nil));
+    handler(peripheral, nil);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheralDidInvalidateServices:peripheral];
@@ -71,7 +66,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
   PRTInvalidatedServicesBlock handler =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (handler) {
-    PRT_EXECUTE_ON_MAIN_THREAD(handler(peripheral, invalidatedServices));
+    handler(peripheral, invalidatedServices);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheral:peripheral
@@ -88,7 +83,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
   PRTRSSIBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
-    PRT_EXECUTE_ON_MAIN_THREAD(completion(peripheral, RSSI, error));
+    completion(peripheral, RSSI, error);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheralDidUpdateRSSI:peripheral error:error];
@@ -103,7 +98,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
   PRTRSSIBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
-    PRT_EXECUTE_ON_MAIN_THREAD(completion(peripheral, RSSI, error));
+    completion(peripheral, RSSI, error);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheral:peripheral didReadRSSI:RSSI error:error];
@@ -117,7 +112,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
   PRTPeripheralBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
-    PRT_EXECUTE_ON_MAIN_THREAD(completion(peripheral, error));
+    completion(peripheral, error);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheral:peripheral didDiscoverServices:error];
@@ -130,7 +125,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
   PRTServiceBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
-    PRT_EXECUTE_ON_MAIN_THREAD(completion(peripheral, service, error));
+    completion(peripheral, service, error);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheral:peripheral
@@ -145,7 +140,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
   PRTServiceBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
-    PRT_EXECUTE_ON_MAIN_THREAD(completion(peripheral, service, error));
+    completion(peripheral, service, error);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheral:peripheral
@@ -160,7 +155,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
   PRTCharacteristicBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
-    PRT_EXECUTE_ON_MAIN_THREAD(completion(peripheral, characteristic, error));
+    completion(peripheral, characteristic, error);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheral:peripheral
@@ -175,7 +170,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
   PRTCharacteristicBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
-    PRT_EXECUTE_ON_MAIN_THREAD(completion(peripheral, characteristic, error));
+    completion(peripheral, characteristic, error);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheral:peripheral
@@ -191,7 +186,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
   PRTCharacteristicBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
-    PRT_EXECUTE_ON_MAIN_THREAD(completion(peripheral, characteristic, error));
+    completion(peripheral, characteristic, error);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheral:peripheral
@@ -206,7 +201,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
   PRTCharacteristicBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
-    PRT_EXECUTE_ON_MAIN_THREAD(completion(peripheral, characteristic, error));
+    completion(peripheral, characteristic, error);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheral:peripheral
@@ -221,7 +216,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
   PRTDescriptorBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
-    PRT_EXECUTE_ON_MAIN_THREAD(completion(peripheral, descriptor, error));
+    completion(peripheral, descriptor, error);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheral:peripheral
@@ -236,7 +231,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
   PRTDescriptorBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
-    PRT_EXECUTE_ON_MAIN_THREAD(completion(peripheral, descriptor, error));
+    completion(peripheral, descriptor, error);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheral:peripheral

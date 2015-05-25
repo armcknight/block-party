@@ -10,11 +10,6 @@
 
 #import <objc/runtime.h>
 
-#define PRT_EXECUTE_ON_MAIN_THREAD(block)      \
-  dispatch_async(dispatch_get_main_queue(), ^{ \
-    block;                                     \
-  })
-
 static const void *kPRTCBPeripheralManagerDelegateKey =
     &kPRTCBPeripheralManagerDelegateKey;
 
@@ -42,7 +37,7 @@ static const void *kPRTCBPeripheralManagerDelegateKey =
   PRTPeriphalManagerBlock handler =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (handler) {
-    PRT_EXECUTE_ON_MAIN_THREAD(handler(peripheral));
+    handler(peripheral);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheralManagerDidUpdateState:peripheral];
@@ -54,7 +49,7 @@ static const void *kPRTCBPeripheralManagerDelegateKey =
   PRTPeripheralManagerStateRestoreBlock handler =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (handler) {
-    PRT_EXECUTE_ON_MAIN_THREAD(handler(peripheral, dict));
+    handler(peripheral, dict);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheralManager:peripheral willRestoreState:dict];
@@ -66,7 +61,7 @@ static const void *kPRTCBPeripheralManagerDelegateKey =
   PRTPeripheralManagerAdvertisingBlock handler =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (handler) {
-    PRT_EXECUTE_ON_MAIN_THREAD(handler(peripheral, error));
+    handler(peripheral, error);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheralManagerDidStartAdvertising:peripheral
@@ -80,7 +75,7 @@ static const void *kPRTCBPeripheralManagerDelegateKey =
   PRTPeripheralManagerServiceBlock handler =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (handler) {
-    PRT_EXECUTE_ON_MAIN_THREAD(handler(peripheral, service, error));
+    handler(peripheral, service, error);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheralManager:peripheral
@@ -95,7 +90,7 @@ static const void *kPRTCBPeripheralManagerDelegateKey =
   PRTPeripheralManagerCharacteristicBlock handler =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (handler) {
-    PRT_EXECUTE_ON_MAIN_THREAD(handler(peripheral, central, characteristic));
+    handler(peripheral, central, characteristic);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheralManager:peripheral
@@ -110,7 +105,7 @@ static const void *kPRTCBPeripheralManagerDelegateKey =
   PRTPeripheralManagerCharacteristicBlock handler =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (handler) {
-    PRT_EXECUTE_ON_MAIN_THREAD(handler(peripheral, central, characteristic));
+    handler(peripheral, central, characteristic);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheralManager:peripheral
@@ -124,7 +119,7 @@ static const void *kPRTCBPeripheralManagerDelegateKey =
   PRTPeripheralManagerReadRequestBlock handler =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (handler) {
-    PRT_EXECUTE_ON_MAIN_THREAD(handler(peripheral, request));
+    handler(peripheral, request);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheralManager:peripheral
@@ -137,7 +132,7 @@ static const void *kPRTCBPeripheralManagerDelegateKey =
   PRTPeripheralManagerWriteRequestsBlock handler =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (handler) {
-    PRT_EXECUTE_ON_MAIN_THREAD(handler(peripheral, requests));
+    handler(peripheral, requests);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate peripheralManager:peripheral
@@ -150,7 +145,7 @@ static const void *kPRTCBPeripheralManagerDelegateKey =
   PRTPeriphalManagerBlock handler =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (handler) {
-    PRT_EXECUTE_ON_MAIN_THREAD(handler(peripheral));
+    handler(peripheral);
   }
   if ([self.previousDelegate respondsToSelector:_cmd]) {
     [self.previousDelegate
