@@ -30,10 +30,10 @@ typedef void (^PRTPeripheralManagerWriteRequestsBlock)(
         (PRTPeriphalManagerBlock)handler;
 - (void)prt_peripheralManagerWillRestoreStateHandler:
         (PRTPeripheralManagerStateRestoreBlock)handler;
-- (void)prt_peripheralManagerDidStartAdvertisingHandler:
-        (PRTPeripheralManagerAdvertisingBlock)handler;
-- (void)prt_peripheralManagerDidAddServiceHandler:
-        (PRTPeripheralManagerServiceBlock)handler;
+- (void)prt_startAdvertising:(NSDictionary *)advertisementData
+                  completion:(PRTPeripheralManagerAdvertisingBlock)completion;
+- (void)prt_addService:(CBMutableService *)service
+            completion:(PRTPeripheralManagerServiceBlock)completion;
 - (void)prt_peripheralManagerDidSubscribeToCharacteristicHandler:
         (PRTPeripheralManagerCharacteristicBlock)handler;
 - (void)prt_peripheralManagerDidUnsubscribeToCharacteristicHandler:

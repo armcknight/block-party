@@ -176,16 +176,18 @@ static const void *kPRTCBPeripheralManagerDelegateKey =
          forSelector:@selector(prt_peripheralManagerWillRestoreStateHandler:)];
 }
 
-- (void)prt_peripheralManagerDidStartAdvertisingHandler:
-        (PRTPeripheralManagerAdvertisingBlock)handler {
-  [self prt_setBlock:handler
+- (void)prt_startAdvertising:(NSDictionary *)advertisementData
+                  completion:(PRTPeripheralManagerAdvertisingBlock)completion {
+  [self prt_setBlock:completion
          forSelector:@selector(peripheralManagerDidStartAdvertising:error:)];
+  [self startAdvertising:advertisementData];
 }
 
-- (void)prt_peripheralManagerDidAddServiceHandler:
-        (PRTPeripheralManagerServiceBlock)handler {
-  [self prt_setBlock:handler
+- (void)prt_addService:(CBMutableService *)service
+            completion:(PRTPeripheralManagerServiceBlock)completion {
+  [self prt_setBlock:completion
          forSelector:@selector(peripheralManager:didAddService:error:)];
+  [self addService:service];
 }
 
 - (void)prt_peripheralManagerDidSubscribeToCharacteristicHandler:
