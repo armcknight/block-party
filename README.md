@@ -6,36 +6,36 @@ Lego the delegate pattern.
 
 Use Block Party to replace all the delegate callbacks with blocks (or just some--delegate callbacks still fire in all cases).
 
-- Core Bluetooth (CBCentralManager, CBPeripheral and CBPeripheralManager)
-	- CBPeripheralManager
+#### Core Bluetooth (CBCentralManager, CBPeripheral and CBPeripheralManager)
+##### CBPeripheralManager
 ```objective-c
-	[self.peripheralManager prt_peripheralManagerIsReadyToUpdateSubscribersHandler:
-          ^(CBPeripheralManager* manager) {
-            [self sendData];
-          }];
+[self.peripheralManager prt_peripheralManagerIsReadyToUpdateSubscribersHandler:
+  ^(CBPeripheralManager* manager) {
+    [self sendData];
+  }];
 ``` 
     
-    - CBPeripheral
+##### CBPeripheral
 ```objective-c
-    [peripheral prt_discoverServices:services
-                          completion:^(CBPeripheral* peripheral, NSError* error) {
-                              if (error) {
-                                  NSLog(@"error discovering services %@", error);
-                              } else {
-                                  for (CBService* service in peripheral.services) {
-                                      if ([service.UUID.UUIDString isEqualToString:TRANSFER_SERVICE_UUID]) {
-                                          self.foundService = service;
-                                          NSArray *characteristics = @[ [CBUUID UUIDWithString:TRANSFER_CHARACTERISTIC_UUID] ];
-                                          [self.peripheral discoverCharacteristics:characteristics
-                                                                        forService:self.foundService];
-                                          break;
-                                      }
-                                  }
-                              }
-                          }];
+[peripheral prt_discoverServices:services
+                      completion:^(CBPeripheral* peripheral, NSError* error) {
+                        if (error) {
+                          NSLog(@"error discovering services %@", error);
+                        } else {
+                          for (CBService* service in peripheral.services) {
+                            if ([service.UUID.UUIDString isEqualToString:TRANSFER_SERVICE_UUID]) {
+                              self.foundService = service;
+                              NSArray *characteristics = @[ [CBUUID UUIDWithString:TRANSFER_CHARACTERISTIC_UUID] ];
+                              [self.peripheral discoverCharacteristics:characteristics
+                                                            forService:self.foundService];
+                              break;
+                            }
+                        }
+                    }
+                  }];
 ```
 
-- UINavigationController
+#### UINavigationController
 ```objective-c
 [self.navigationController prt_pushViewController:someViewController
       animated:YES
@@ -51,15 +51,15 @@ Use Block Party to replace all the delegate callbacks with blocks (or just some-
 ```
 
 ## Utilities
-- PRTAssert
+### PRTAssert
 
 Ever wanted a fail-fast assert during development and a graceful exit in production? If you've ever written something like this:
 ```objective-c
 NSAssert(expression, @"something went wrong");
 if (expression) {
-      NSLog(@"production success code");
+  NSLog(@"production success code");
 } else {
-      NSLog(@"production failure code");
+  NSLog(@"production failure code");
 }
 ```
 then you can combine the assert and conditional using this utility macro:
