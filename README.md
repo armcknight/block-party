@@ -41,12 +41,12 @@ Use Block Party to replace all the delegate callbacks with blocks (or just some-
       animated:YES
       preparation:^(UINavigationController *navigationController,
                     UIViewController *presentingViewController) {
-          NSLog(@"Hi! I execute before the nav push!");
+        NSLog(@"Hi! I execute before the nav push!");
       }
       completion:^(UINavigationController *navigationController,
                    UIViewController *presentedViewController,
                    NSArray *poppedViewControllers) {
-          NSLog(@"Hi! I execute after the nav push!");
+        NSLog(@"Hi! I execute after the nav push!");
       }];
 ```
 
