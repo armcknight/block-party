@@ -30,9 +30,9 @@ Use Block Party to replace all the delegate callbacks with blocks (or just some-
                                                             forService:self.foundService];
                               break;
                             }
-                        }
-                    }
-                  }];
+                          }
+                        } 
+                      }];
 ```
 
 #### UINavigationController
