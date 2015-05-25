@@ -38,9 +38,11 @@
     case PRTDemoAsserts:
       demoVC =
           [[AssertDemoViewController alloc] initWithNibName:nil bundle:nil];
+          break;
     case PRTDemoBluetooth:
       demoVC = [[BluetoothBlocksDemoViewController alloc] initWithNibName:nil
                                                                    bundle:nil];
+          break;
     default:
       break;
   }
