@@ -10,31 +10,30 @@
 
 typedef void (^PRTRSSIBlock)(CBPeripheral *peripheral, NSNumber *RSSI,
                              NSError *error);
-typedef void (^PRTPeripheralCompletion)(CBPeripheral *peripheral,
-                                        NSError *error);
-typedef void (^PRTServiceCompletion)(CBPeripheral *peripheral,
-                                     CBService *service, NSError *error);
-typedef void (^PRTCharacteristicCompletion)(CBPeripheral *peripheral,
-                                            CBCharacteristic *characteristic,
-                                            NSError *error);
-typedef void (^PRTDescriptorCompletion)(CBPeripheral *peripheral,
-                                        CBDescriptor *descriptor,
-                                        NSError *error);
 
+typedef void (^PRTPeripheralBlock)(CBPeripheral *peripheral, NSError *error);
+typedef void (^PRTServiceBlock)(CBPeripheral *peripheral, CBService *service,
+                                NSError *error);
+typedef void (^PRTCharacteristicBlock)(CBPeripheral *peripheral,
+                                       CBCharacteristic *characteristic,
+                                       NSError *error);
+typedef void (^PRTDescriptorBlock)(CBPeripheral *peripheral,
+                                   CBDescriptor *descriptor,
+                                   NSError *error);
 @interface CBPeripheral (PRTBlocks)
 
 - (void)prt_readRSSIWithCompletion:(PRTRSSIBlock)completion;
 
 - (void)prt_discoverServices:(NSArray *)serviceUUIDs
-                  completion:(PRTPeripheralCompletion)completion;
+                  completion:(PRTPeripheralBlock)completion;
 
 - (void)prt_discoverIncludedServices:(NSArray *)includedServiceUUIDs
                           forService:(CBService *)service
-                          completion:(PRTServiceCompletion)completion;
+                          completion:(PRTServiceBlock)completion;
 
 - (void)prt_discoverCharacteristics:(NSArray *)characteristicUUIDs
                          forService:(CBService *)service
-                         completion:(PRTServiceCompletion)completion;
+                         completion:(PRTServiceBlock)completion;
 
 /**
  *  Writes a value to the specified characteristic and performs the provided
@@ -49,23 +48,23 @@ typedef void (^PRTDescriptorCompletion)(CBPeripheral *peripheral,
  */
 - (void)prt_writeValue:(NSData *)data
      forCharacteristic:(CBCharacteristic *)characteristic
-            completion:(PRTCharacteristicCompletion)completion;
+            completion:(PRTCharacteristicBlock)completion;
 
-- (void)prt_characteristicUpdateHandler:(PRTCharacteristicCompletion)handler;
+- (void)prt_characteristicUpdateHandler:(PRTCharacteristicBlock)handler;
 
 - (void)prt_setNotifyValue:(BOOL)enabled
          forCharacteristic:(CBCharacteristic *)characteristic
-                completion:(PRTCharacteristicCompletion)completion;
+                completion:(PRTCharacteristicBlock)completion;
 
 - (void)
     prt_discoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic
                                   completion:
-                                      (PRTCharacteristicCompletion)completion;
+                                      (PRTCharacteristicBlock)completion;
 
 - (void)prt_writeValue:(NSData *)data
          forDescriptor:(CBDescriptor *)descriptor
-            completion:(PRTDescriptorCompletion)completion;
+            completion:(PRTDescriptorBlock)completion;
 
-- (void)prt_descriptorUpdateHandler:(PRTDescriptorCompletion)handler;
+- (void)prt_descriptorUpdateHandler:(PRTDescriptorBlock)handler;
 
 @end

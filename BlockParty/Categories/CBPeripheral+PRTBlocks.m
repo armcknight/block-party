@@ -69,7 +69,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
 
 - (void)peripheral:(CBPeripheral *)peripheral
     didDiscoverServices:(NSError *)error {
-  PRTPeripheralCompletion completion =
+  PRTPeripheralBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
     PRT_EXECUTE_ON_MAIN_THREAD(completion(peripheral, error));
@@ -82,7 +82,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
 - (void)peripheral:(CBPeripheral *)peripheral
     didDiscoverIncludedServicesForService:(CBService *)service
                                     error:(NSError *)error {
-  PRTServiceCompletion completion =
+  PRTServiceBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
     PRT_EXECUTE_ON_MAIN_THREAD(completion(peripheral, service, error));
@@ -97,7 +97,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
 - (void)peripheral:(CBPeripheral *)peripheral
     didDiscoverCharacteristicsForService:(CBService *)service
                                    error:(NSError *)error {
-  PRTServiceCompletion completion =
+  PRTServiceBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
     PRT_EXECUTE_ON_MAIN_THREAD(completion(peripheral, service, error));
@@ -112,7 +112,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
 - (void)peripheral:(CBPeripheral *)peripheral
     didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
                               error:(NSError *)error {
-  PRTCharacteristicCompletion completion =
+  PRTCharacteristicBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
     PRT_EXECUTE_ON_MAIN_THREAD(completion(peripheral, characteristic, error));
@@ -127,7 +127,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
 - (void)peripheral:(CBPeripheral *)peripheral
     didWriteValueForCharacteristic:(CBCharacteristic *)characteristic
                              error:(NSError *)error {
-  PRTCharacteristicCompletion completion =
+  PRTCharacteristicBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
     PRT_EXECUTE_ON_MAIN_THREAD(completion(peripheral, characteristic, error));
@@ -143,7 +143,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
     didUpdateNotificationStateForCharacteristic:
         (CBCharacteristic *)characteristic
                                           error:(NSError *)error {
-  PRTCharacteristicCompletion completion =
+  PRTCharacteristicBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
     PRT_EXECUTE_ON_MAIN_THREAD(completion(peripheral, characteristic, error));
@@ -158,7 +158,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
 - (void)peripheral:(CBPeripheral *)peripheral
     didDiscoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic
                                       error:(NSError *)error {
-  PRTCharacteristicCompletion completion =
+  PRTCharacteristicBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
     PRT_EXECUTE_ON_MAIN_THREAD(completion(peripheral, characteristic, error));
@@ -173,7 +173,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
 - (void)peripheral:(CBPeripheral *)peripheral
     didUpdateValueForDescriptor:(CBDescriptor *)descriptor
                           error:(NSError *)error {
-  PRTDescriptorCompletion completion =
+  PRTDescriptorBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
     PRT_EXECUTE_ON_MAIN_THREAD(completion(peripheral, descriptor, error));
@@ -188,7 +188,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
 - (void)peripheral:(CBPeripheral *)peripheral
     didWriteValueForDescriptor:(CBDescriptor *)descriptor
                          error:(NSError *)error {
-  PRTDescriptorCompletion completion =
+  PRTDescriptorBlock completion =
       self.callbackSelectorBlockMap[NSStringFromSelector(_cmd)];
   if (completion) {
     PRT_EXECUTE_ON_MAIN_THREAD(completion(peripheral, descriptor, error));
@@ -218,7 +218,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
 }
 
 - (void)prt_discoverServices:(NSArray *)serviceUUIDs
-                  completion:(PRTPeripheralCompletion)completion {
+                  completion:(PRTPeripheralBlock)completion {
   [[self prt_delegate] callbackSelectorBlockMap][NSStringFromSelector(
       @selector(peripheral:didDiscoverServices:))] = [completion copy];
   [self discoverServices:serviceUUIDs];
@@ -226,7 +226,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
 
 - (void)prt_discoverIncludedServices:(NSArray *)includedServiceUUIDs
                           forService:(CBService *)service
-                          completion:(PRTServiceCompletion)completion {
+                          completion:(PRTServiceBlock)completion {
   [[self prt_delegate] callbackSelectorBlockMap][NSStringFromSelector(
       @selector(peripheral:didDiscoverIncludedServicesForService:error:))] =
       [completion copy];
@@ -235,7 +235,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
 
 - (void)prt_discoverCharacteristics:(NSArray *)characteristicUUIDs
                          forService:(CBService *)service
-                         completion:(PRTServiceCompletion)completion {
+                         completion:(PRTServiceBlock)completion {
   [[self prt_delegate] callbackSelectorBlockMap][NSStringFromSelector(
       @selector(peripheral:didDiscoverCharacteristicsForService:error:))] =
       [completion copy];
@@ -244,7 +244,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
 
 - (void)prt_writeValue:(NSData *)data
      forCharacteristic:(CBCharacteristic *)characteristic
-            completion:(PRTCharacteristicCompletion)completion {
+            completion:(PRTCharacteristicBlock)completion {
   PRTCBPeripheralDelegate *delegate = [self prt_delegate];
   [delegate callbackSelectorBlockMap][NSStringFromSelector(
       @selector(peripheral:didWriteValueForCharacteristic:error:))] =
@@ -254,7 +254,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
                    type:CBCharacteristicWriteWithResponse];
 }
 
-- (void)prt_characteristicUpdateHandler:(PRTCharacteristicCompletion)handler {
+- (void)prt_characteristicUpdateHandler:(PRTCharacteristicBlock)handler {
   [[self prt_delegate] callbackSelectorBlockMap][NSStringFromSelector(
       @selector(peripheral:didUpdateValueForCharacteristic:error:))] =
       [handler copy];
@@ -262,7 +262,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
 
 - (void)prt_setNotifyValue:(BOOL)enabled
          forCharacteristic:(CBCharacteristic *)characteristic
-                completion:(PRTCharacteristicCompletion)completion {
+                completion:(PRTCharacteristicBlock)completion {
   [[self prt_delegate] callbackSelectorBlockMap][NSStringFromSelector(@selector(
                                        peripheral:
       didUpdateNotificationStateForCharacteristic:
@@ -273,14 +273,14 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
 - (void)
     prt_discoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic
                                   completion:
-                                      (PRTCharacteristicCompletion)completion {
+                                      (PRTCharacteristicBlock)completion {
   [[self prt_delegate] callbackSelectorBlockMap][NSStringFromSelector(
       @selector(peripheral:didDiscoverDescriptorsForCharacteristic:error:))] =
       [completion copy];
   [self discoverDescriptorsForCharacteristic:characteristic];
 }
 
-- (void)prt_descriptorUpdateHandler:(PRTDescriptorCompletion)handler {
+- (void)prt_descriptorUpdateHandler:(PRTDescriptorBlock)handler {
   [[self prt_delegate] callbackSelectorBlockMap][NSStringFromSelector(
       @selector(peripheral:didUpdateValueForDescriptor:error:))] =
       [handler copy];
@@ -288,7 +288,7 @@ static const void *kPRTCBPeripheralDelegateKey = &kPRTCBPeripheralDelegateKey;
 
 - (void)prt_writeValue:(NSData *)data
          forDescriptor:(CBDescriptor *)descriptor
-            completion:(PRTDescriptorCompletion)completion {
+            completion:(PRTDescriptorBlock)completion {
   PRTCBPeripheralDelegate *delegate = [self prt_delegate];
   [delegate callbackSelectorBlockMap][NSStringFromSelector(
       @selector(peripheral:didWriteValueForDescriptor:error:))] =

@@ -59,7 +59,7 @@
   self.centralManager =
       [[CBCentralManager alloc] initWithDelegate:nil queue:nil];
 
-  PRTCharacteristicCompletion characteristicUpdateCompletion =
+  PRTCharacteristicBlock characteristicUpdateCompletion =
       ^(CBPeripheral* peripheral, CBCharacteristic* characteristic,
         NSError* error) {
         if (error) {
@@ -87,7 +87,7 @@
         }
       };
 
-  PRTCharacteristicCompletion characteristicNotificationCompletion =
+  PRTCharacteristicBlock characteristicNotificationCompletion =
       ^(CBPeripheral* peripheral, CBCharacteristic* characteristic,
         NSError* error) {
         if (error) {
@@ -98,7 +98,7 @@
         }
       };
 
-  PRTServiceCompletion characteristicCompletion = ^(CBPeripheral* peripheral,
+  PRTServiceBlock characteristicCompletion = ^(CBPeripheral* peripheral,
                                                     CBService* service,
                                                     NSError* error) {
     if (error) {
@@ -117,7 +117,7 @@
     }
   };
 
-  PRTPeripheralCompletion serviceCompletion = ^(CBPeripheral* peripheral,
+  PRTPeripheralBlock serviceCompletion = ^(CBPeripheral* peripheral,
                                                 NSError* error) {
     if (error) {
       NSLog(@"error discovering services %@", error);
