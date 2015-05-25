@@ -59,64 +59,59 @@
   self.centralManager =
       [[CBCentralManager alloc] initWithDelegate:nil queue:nil];
 
-  PRTServiceCompletion characteristicCompletion = ^(CBPeripheral* peripheral1,
+  PRTCharacteristicCompletion characteristicUpdateCompletion =
+      ^(CBPeripheral* peripheral, CBCharacteristic* characteristic,
+        NSError* error) {
+        if (error) {
+          NSLog(@"Error discovering " @"characteristics: %@",
+                [error localizedDescription]);
+          return;
+        }
+
+        NSString* stringFromData =
+            [[NSString alloc] initWithData:characteristic.value
+                                  encoding:NSUTF8StringEncoding];
+
+        // Have we got everything we need?
+        if ([stringFromData isEqualToString:@"EOM"]) {
+          // We have, so show the data,
+          [self.receivedTextLabel
+              setText:[[NSString alloc] initWithData:self.data
+                                            encoding:NSUTF8StringEncoding]];
+          self.data = [NSMutableData data];
+        } else {
+          if (!self.data) {
+            self.data = [NSMutableData data];
+          }
+          [self.data appendData:characteristic.value];
+        }
+      };
+
+  PRTCharacteristicCompletion characteristicNotificationCompletion =
+      ^(CBPeripheral* peripheral, CBCharacteristic* characteristic,
+        NSError* error) {
+        if (error) {
+          NSLog(@"error " @"enabling" @" notific" @"ations: " @"%@", error);
+        } else {
+          [self.peripheral
+              prt_characteristicUpdateHandler:characteristicUpdateCompletion];
+        }
+      };
+
+  PRTServiceCompletion characteristicCompletion = ^(CBPeripheral* peripheral,
                                                     CBService* service,
                                                     NSError* error) {
     if (error) {
       NSLog(@"error discovering " @"characteristics: %@", error);
     } else {
-      for (CBCharacteristic* characteristic1 in service.characteristics) {
-        if ([characteristic1.UUID
+      for (CBCharacteristic* characteristic in service.characteristics) {
+        if ([characteristic.UUID
                 isEqual:[CBUUID UUIDWithString:TRANSFER_CHARACTERISTIC_UUID]]) {
-          self.foundCharacteristic = characteristic1;
+          self.foundCharacteristic = characteristic;
           [self.peripheral
               prt_setNotifyValue:YES
-               forCharacteristic:characteristic1
-                      completion:^(CBPeripheral* peripheral2,
-                                   CBCharacteristic* characteristic2,
-                                   NSError* error) {
-                        if (error) {
-                          NSLog(@"error " @"enabling" @" notific" @"ations: "
-                                @"%@",
-                                error);
-                        } else {
-                          [self.peripheral
-                              prt_characteristicUpdateHandler:
-                                  ^(CBPeripheral* peripheral3,
-                                    CBCharacteristic* characteristic3,
-                                    NSError* error) {
-                                    if (error) {
-                                      NSLog(@"Error discovering "
-                                            @"characteristics: %@",
-                                            [error localizedDescription]);
-                                      return;
-                                    }
-
-                                    NSString* stringFromData = [[NSString alloc]
-                                        initWithData:characteristic3.value
-                                            encoding:NSUTF8StringEncoding];
-
-                                    // Have we got everything we need?
-                                    if ([stringFromData
-                                            isEqualToString:@"EOM"]) {
-                                      // We have, so show the data,
-                                      [self.receivedTextLabel
-                                          setText:
-                                              [[NSString alloc]
-                                                  initWithData:self.data
-                                                      encoding:
-                                                          NSUTF8StringEncoding]];
-                                      self.data = [NSMutableData data];
-                                    } else {
-                                      if (!self.data) {
-                                        self.data = [NSMutableData data];
-                                      }
-                                      [self.data
-                                          appendData:characteristic3.value];
-                                    }
-                                  }];
-                        }
-                      }];
+               forCharacteristic:characteristic
+                      completion:characteristicNotificationCompletion];
         }
       }
     }
@@ -141,24 +136,25 @@
 
   NSArray* services = @[ [CBUUID UUIDWithString:TRANSFER_SERVICE_UUID] ];
 
-  PRTCBPeripheralFoundBlock foundCompletion = ^(CBCentralManager* central,
-                                                CBPeripheral* peripheral,
-                                                NSDictionary* advData,
-                                                NSNumber* RSSI) {
-    self.peripheral = peripheral;
-    //        [central stopScan];
-    [central prt_connectPeripheral:peripheral
-                           options:nil
-                        completion:^(CBCentralManager* central,
-                                     CBPeripheral* peripheral, NSError* error) {
-                          if (error) {
-                            NSLog(@"error connecting %@", error);
-                          } else {
-                            [peripheral prt_discoverServices:services
-                                                  completion:serviceCompletion];
-                          }
-                        }];
-  };
+  PRTCBPeripheralBlock peripheralConnectionCompletion =
+      ^(CBCentralManager* central, CBPeripheral* peripheral, NSError* error) {
+        if (error) {
+          NSLog(@"error connecting %@", error);
+        } else {
+          [peripheral prt_discoverServices:services
+                                completion:serviceCompletion];
+        }
+      };
+
+  PRTCBPeripheralFoundBlock foundCompletion =
+      ^(CBCentralManager* central, CBPeripheral* peripheral,
+        NSDictionary* advData, NSNumber* RSSI) {
+        self.peripheral = peripheral;
+        //        [central stopScan];
+        [central prt_connectPeripheral:peripheral
+                               options:nil
+                            completion:peripheralConnectionCompletion];
+      };
 
   [self.centralManager
       prt_centralManagerDidUpdateStateHandler:^(CBCentralManager* central) {
