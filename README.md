@@ -1,8 +1,40 @@
 # Block Party! <img src="https://img.shields.io/cocoapods/v/BlockParty.svg" />
 
-Lego of the delegate pattern.
+Lego the delegate pattern.
 
 ## De-delegatized
+
+Use Block Party to replace all the delegate callbacks with blocks (or just some--delegate callbacks still fire in all cases).
+
+- Core Bluetooth (CBCentralManager, CBPeripheral and CBPeripheralManager)
+	- CBPeripheralManager
+```objective-c
+	[self.peripheralManager prt_peripheralManagerIsReadyToUpdateSubscribersHandler:
+          ^(CBPeripheralManager* manager) {
+            [self sendData];
+          }];
+``` 
+    
+    - CBPeripheral
+```objective-c
+    [peripheral prt_discoverServices:services
+                          completion:^(CBPeripheral* peripheral, NSError* error) {
+                              if (error) {
+                                  NSLog(@"error discovering services %@", error);
+                              } else {
+                                  for (CBService* service in peripheral.services) {
+                                      if ([service.UUID.UUIDString isEqualToString:TRANSFER_SERVICE_UUID]) {
+                                          self.foundService = service;
+                                          NSArray *characteristics = @[ [CBUUID UUIDWithString:TRANSFER_CHARACTERISTIC_UUID] ];
+                                          [self.peripheral discoverCharacteristics:characteristics
+                                                                        forService:self.foundService];
+                                          break;
+                                      }
+                                  }
+                              }
+                          }];
+```
+
 - UINavigationController
 ```objective-c
 [self.navigationController prt_pushViewController:someViewController
